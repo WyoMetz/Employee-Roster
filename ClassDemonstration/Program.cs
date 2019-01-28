@@ -10,6 +10,7 @@ namespace ClassDemonstration
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Building an employee Roster");
             ConsoleView view = new ConsoleView();
             view.Execute();
         }

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ConsoleView.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="EmployeeRoster.cs" />
     <Compile Include="InputValidation.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Person.cs" />

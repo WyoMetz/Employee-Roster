@@ -9,19 +9,20 @@ namespace ClassDemonstration
     public class ConsoleView
     {
         InputValidation validate = new InputValidation();
+        EmployeeRoster roster = new EmployeeRoster();
         Person person;
         Employee employee;
         Manager manager;
 
         public void Execute()
         {
-            Console.WriteLine("Please Enter the Persons Name");
+            Console.WriteLine("Please enter a Persons Name");
             GetPerson();
 
             Console.WriteLine($"Please enter {person.Name}'s Employee ID");
             MakeEmployee();
 
-            Console.WriteLine($"Please set {employee.Person.Name}'s Wage");
+            Console.WriteLine($"Please set {employee.Person.Name}'s Wage per hour");
             SetWage();
 
             Console.WriteLine($"Would you like to make {employee.Person.Name} a Manager?");
@@ -32,6 +33,7 @@ namespace ClassDemonstration
             }
             else
             {
+                roster.AddEmployee(employee);
                 Console.WriteLine($"{employee.Person.Name}'s Wage is {employee.Wage:c}");
             }
 
@@ -41,12 +43,17 @@ namespace ClassDemonstration
             {
                 Execute();
             }
+            else
+            {
+                GetRoster();
+                Console.ReadLine();
+            }
         }
 
-        public void GetPerson()
+        private void GetPerson()
         {
             string name = validate.String(Console.ReadLine());
-            if(validate.Invalid != true)
+            if(validate.InputInvalid != true)
             {
                 person = new Person(name);
             }
@@ -57,10 +64,10 @@ namespace ClassDemonstration
             }
         }
 
-        public void MakeEmployee()
+        private void MakeEmployee()
         {
             int id = validate.Int(Console.ReadLine());
-            if(validate.Invalid != true)
+            if(validate.InputInvalid != true)
             {
                 employee = new Employee(person, id);
             }
@@ -71,10 +78,10 @@ namespace ClassDemonstration
             }
         }
 
-        public void SetWage()
+        private void SetWage()
         {
             int wage = validate.Int(Console.ReadLine());
-            if (validate.Invalid != true)
+            if (validate.InputInvalid != true)
             {
                 employee.Wage = wage;
             }
@@ -85,11 +92,33 @@ namespace ClassDemonstration
             }
         }
 
-        public void MakeManager()
+        private void MakeManager()
         {
             Console.WriteLine($"{employee.Person.Name} is now a Manger");
             manager = new Manager(employee);
+            roster.AddManagers(manager);
             Console.Write($"{manager.Employee.Person.Name}'s Wage is now {manager.Wage:c}");
+        }
+
+        private void GetRoster()
+        {
+            if(roster.Employees.Count > 0)
+            {
+                Console.WriteLine("Your Employees are:");
+                foreach (var Employee in roster.Employees)
+                {
+                    Console.WriteLine($"{Employee.Person.Name} who's ID is {Employee.EmployeeID} and whose Wage is {Employee.Wage:c} per hour");
+                }
+            }
+            if(roster.Managers.Count > 0)
+            {
+                Console.WriteLine("Your Managers are:");
+                foreach (var Manager in roster.Managers)
+                {
+                    Console.WriteLine($"{Manager.Employee.Person.Name} who's ID is {Manager.Employee.EmployeeID} and whose Wage is {Manager.Wage:c} per hour");
+
+                }
+            }
         }
     }
 }

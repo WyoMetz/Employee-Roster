@@ -8,19 +8,19 @@ namespace ClassDemonstration
 {
     public class InputValidation
     {
-        public bool Invalid { get; private set; }
+        public bool InputInvalid { get; private set; }
 
         public int Int(string value)
         {
             try
             {
                 int CheckValue = int.Parse(value);
-                Invalid = false;
+                InputInvalid = false;
                 return CheckValue;
             }
             catch
             {
-                Invalid = true;
+                InputInvalid = true;
                 return 0;
             }
         }
@@ -30,12 +30,12 @@ namespace ClassDemonstration
             try
             {
                 int CheckValue = int.Parse(value);
-                Invalid = true;
+                InputInvalid = true;
                 return "String cannot be a number";
             }
             catch
             {
-                Invalid = false;
+                InputInvalid = false;
                 return value;
             }
         }
