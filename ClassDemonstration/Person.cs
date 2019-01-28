@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ClassDemonstration
 {
-    class Program
+    public class Person
     {
-        static void Main(string[] args)
+        public string Name { get; set; }
+
+        public Person(string name)
         {
-            ConsoleView view = new ConsoleView();
-            view.Execute();
+            Name = name;
         }
     }
 }
